@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api';
 
 const MovieDetails = () => {
@@ -25,6 +25,7 @@ const MovieDetails = () => {
         <Link to={'/'}>
           <button>↩️Back To Home Page</button>
         </Link>
+
         <div>
           <img
             width="250"

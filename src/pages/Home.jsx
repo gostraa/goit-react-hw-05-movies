@@ -1,12 +1,12 @@
+import { MoviesList } from 'components/MoviesList';
 import { useEffect, useState } from 'react';
-import { fetchTrendingMovies } from '../services/api';
-import { MovieList } from 'components/MovieList/MovieList';
+import { fetchTrendingMovies } from 'services/api';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTrend = async () => {
       try {
         const movies = await fetchTrendingMovies();
         setTrendingMovies(movies);
@@ -14,14 +14,15 @@ const Home = () => {
         console.error(error);
       }
     };
-
-    fetchData();
+    fetchTrend();
   }, []);
 
   return (
     <section>
-      <h2>Trending today</h2>
-      <MovieList filmsArr={trendingMovies} />
+      <div>
+        <h2>Trending Movies</h2>
+        <MoviesList moviesArr={trendingMovies} />
+      </div>
     </section>
   );
 };

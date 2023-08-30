@@ -1,61 +1,64 @@
-import { Cast } from 'components/Cast/Cast';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { fetchMovieDetails } from '../services/api';
+import { Link, Outlet, useParams } from 'react-router-dom';
+import { fetchMovieDetails } from 'services/api';
 
 const MovieDetails = () => {
-  const [details, setDetails] = useState({});
   const { movieId } = useParams();
 
+  const [movieDetails, setMovieDetails] = useState(null);
   useEffect(() => {
-    const fetchDetails = async () => {
+    const getDetails = async () => {
       try {
-        const film = await fetchMovieDetails(movieId);
-        setDetails(film);
+        const detailsOfMovie = await fetchMovieDetails(movieId);
+        setMovieDetails(detailsOfMovie);
+        // console.log(detailsOfMovie);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
-
-    fetchDetails();
+    getDetails();
   }, [movieId]);
-  console.log(details);
+
   return (
-    <>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
-        width="250"
-        height="350"
-        alt=""
-      />
-      {details.original_title && <h2>{details.original_title}</h2>}
-      {details.vote_average && (
-        <p>User score: {Math.round(details.vote_average * 10)}%</p>
-      )}
-      <h2>Overview</h2>
-      {details.overview && (
-        <>
-          <h2>Overview</h2>
-          <p>{details.overview}</p>
-        </>
-      )}
-      {details.genres && details.genres.length > 0 && (
+    movieDetails && (
+      <section>
+        <Link to={'/'}>
+          <button>↩️Back To Home Page</button>
+        </Link>
         <div>
+          <img
+            width="250"
+            height="350"
+            src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`}
+            alt={movieDetails.title}
+          />
+        </div>
+
+        <div>
+          <h1>
+            {movieDetails.title}({parseInt(movieDetails.release_date)})
+          </h1>
+          <p>User Score:{parseInt(movieDetails.vote_average * 10)}%</p>
+          <h2>Overview</h2>
+          <p>{movieDetails.overview}</p>
           <h2>Genres</h2>
           <ul>
-            {details.genres.map(genre => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
+            {movieDetails.genres.map(genre => {
+              return <li key={genre.id}>{genre.name}</li>;
+            })}
           </ul>
         </div>
-      )}
-
-      {details.id && (
-        <Link to={`/cast/${details.id}`}>
-          <Cast details={details} />
-        </Link>
-      )}
-    </>
+        <ul>
+          <li>
+            <Link to={'cast'}>Cast</Link>
+          </li>
+          <li>
+            <Link to={'review'}>Review</Link>
+          </li>
+        </ul>
+        <Outlet />
+      </section>
+    )
   );
 };
 

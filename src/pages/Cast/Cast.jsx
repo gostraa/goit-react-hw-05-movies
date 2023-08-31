@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCast } from 'services/api';
+import style from './Cast.module.css';
 
 const defaultImg =
   'https://profnastil.by/local/templates/aspro-stroy/images/noimage_detail.png';
@@ -23,31 +24,34 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
-      {cast.length !== 0 && (
-        <div>
-          <ul>
-            {cast.map(actor => {
-              return (
-                <li key={actor.id}>
-                  <img
-                    width="200"
-                    src={
-                      actor.profile_path
-                        ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
-                        : defaultImg
-                    }
-                    alt={actor.original_name}
-                  />
-                  <p>Character:{actor.character}</p>
-                </li>
-              );
-            })}
-          </ul>
+    <div className={style['cast_section']}>
+      {cast.length !== 0 ? (
+        <ul className={style['cast_list']}>
+          {cast.map(actor => (
+            <li key={actor.id} className={style['cast_item']}>
+              <img
+                width={200}
+                height={300}
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
+                    : defaultImg
+                }
+                alt={actor.original_name}
+                className={style['actor_image']}
+              />
+              <p className={style['actor_character']}>
+                Character: {actor.character}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className={style['no_cast_message']}>
+          We don't have any cast for this movie.
         </div>
       )}
-      {cast.length === 0 && <div>We don't have any cast for this movie.</div>}
-    </>
+    </div>
   );
 };
 

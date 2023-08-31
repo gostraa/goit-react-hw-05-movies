@@ -1,0 +1,30 @@
+
+.reviews_list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.review_item {
+  margin-bottom: 20px;
+  padding: 20px;
+   background-color: rgba(136, 136, 136, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review_author {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.review_content {
+  font-size: 16px;
+
+}
+
+.no_reviews_message {
+
+  font-size: 16px;
+  margin-top: 10px;
+}

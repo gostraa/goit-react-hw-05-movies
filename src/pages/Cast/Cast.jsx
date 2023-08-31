@@ -8,6 +8,7 @@ const defaultImg =
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
   const { movieId } = useParams();
 
   useEffect(() => {

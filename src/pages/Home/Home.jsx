@@ -1,6 +1,7 @@
-import { MoviesList } from 'components/MoviesList';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useEffect, useState } from 'react';
 import { fetchTrendingMovies } from 'services/api';
+import style from './Home.module.css';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -18,9 +19,9 @@ const Home = () => {
   }, []);
 
   return (
-    <section>
-      <div>
-        <h2>Trending Movies</h2>
+    <section className={style['home_section']}>
+      <div className={style['wrapper']}>
+        <h2 className={style['movie_title']}>Trending Movies</h2>
         <MoviesList moviesArr={trendingMovies} />
       </div>
     </section>

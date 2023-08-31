@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import { useState } from 'react';
+import style from './SearchForm.module.css';
 
 export const SearchForm = ({ onSubmit }) => {
   const [input, setInput] = useState('');
@@ -17,14 +18,21 @@ export const SearchForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={input} onChange={onHandleChange} name="input" />
-      <button type="submit">SEARCH</button>
+    <form className={style['search_form']} onSubmit={handleSubmit}>
+      <input
+        className={style['search_input']}
+        type="text"
+        value={input}
+        onChange={onHandleChange}
+        name="input"
+      />
+      <button className={style['search_button']} type="submit">
+        SEARCH
+      </button>
     </form>
   );
 };
 
 SearchForm.propTypes = {
-  value: propTypes.string,
-  onChange: propTypes.func,
+  onSubmit: propTypes.func.isRequired,
 };

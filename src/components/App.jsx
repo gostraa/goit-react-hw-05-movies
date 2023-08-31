@@ -1,10 +1,22 @@
-import Home from 'pages/Home';
-import MovieDetails from 'pages/MovieDetails';
-import Movies from 'pages/Movies';
-import Cast from 'pages/Cast';
-import Reviews from 'pages/Reviews';
+// import Home from 'pages/Home';
+// import MovieDetails from 'pages/MovieDetails';
+// import Movies from 'pages/Movies';
+// import Cast from 'pages/Cast';
+// import Reviews from 'pages/Reviews';
+import Header from './Header';
+
+import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Header } from './Header';
+
+const easyLazy = path => {
+  return lazy(() => import(`pages/${path}`));
+};
+
+const Home = easyLazy('Home');
+const Movies = easyLazy('Movies');
+const MovieDetails = easyLazy('MovieDetails');
+const Cast = easyLazy('Cast');
+const Reviews = easyLazy('Reviews');
 
 export const App = () => {
   return (

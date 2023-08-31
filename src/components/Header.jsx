@@ -1,14 +1,18 @@
-import React from 'react';
+import { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
-export const Header = () => {
+const Header = () => {
   return (
     <>
       <header>
         <NavLink to={'/'}>Home</NavLink>
         <NavLink to={'/movies'}>Movies</NavLink>
       </header>
-      <Outlet />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
+
+export default Header;

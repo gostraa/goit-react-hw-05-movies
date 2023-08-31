@@ -1,5 +1,6 @@
+import { MoviesList } from 'components/MoviesList';
 import { SearchForm } from 'components/SearchForm';
-import SearchMovieList from 'components/SearchMovieList';
+
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { handleSearch } from 'services/api';
@@ -31,7 +32,7 @@ const Movies = () => {
   return (
     <section>
       <SearchForm onSubmit={handleFormSubmit} />
-      <SearchMovieList arrayOfMovies={films} />
+      <MoviesList moviesArr={films} />
     </section>
   );
 };

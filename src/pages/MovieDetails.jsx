@@ -1,9 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api';
+
+const defaultImg = 'https://cleanshop.ru/i/no_image.gif';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
+
+  const location = useLocation();
+  const backLink = useRef(location.state?.from || '/');
 
   const [movieDetails, setMovieDetails] = useState(null);
   useEffect(() => {
@@ -22,15 +27,17 @@ const MovieDetails = () => {
   return (
     movieDetails && (
       <section>
-        <Link to={'/'}>
-          <button>↩️Back To Home Page</button>
-        </Link>
+        <Link to={backLink.current}>↩️ Go Back</Link>
 
         <div>
           <img
-            width="250"
-            height="350"
-            src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`}
+            width="230"
+            height="300"
+            src={
+              movieDetails.poster_path
+                ? `https://image.tmdb.org/t/p/original${movieDetails.poster_path}`
+                : defaultImg
+            }
             alt={movieDetails.title}
           />
         </div>
@@ -57,7 +64,9 @@ const MovieDetails = () => {
             <Link to={'review'}>Review</Link>
           </li>
         </ul>
-        <Outlet />
+        <Suspense fallback={<p>Loading...</p>}>
+          <Outlet />
+        </Suspense>
       </section>
     )
   );

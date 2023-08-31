@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCast } from 'services/api';
 
+const defaultImg =
+  'https://profnastil.by/local/templates/aspro-stroy/images/noimage_detail.png';
+
 const Cast = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
@@ -18,19 +21,22 @@ const Cast = () => {
     };
     getCast();
   }, [movieId]);
-  const limitedCast = cast.slice(0, 5);
+
   return (
     <>
       {cast.length !== 0 && (
         <div>
           <ul>
-            {limitedCast.map(actor => {
+            {cast.map(actor => {
               return (
                 <li key={actor.id}>
                   <img
-                    width="150"
-                    height="230"
-                    src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
+                    width="200"
+                    src={
+                      actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
+                        : defaultImg
+                    }
                     alt={actor.original_name}
                   />
                   <p>Character:{actor.character}</p>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api';
 
 const MovieDetails = () => {

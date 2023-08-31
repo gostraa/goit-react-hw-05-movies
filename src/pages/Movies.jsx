@@ -1,7 +1,7 @@
 import { SearchForm } from 'components/SearchForm';
 import SearchMovieList from 'components/SearchMovieList';
-import { useEffect, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { handleSearch } from 'services/api';
 
 const Movies = () => {

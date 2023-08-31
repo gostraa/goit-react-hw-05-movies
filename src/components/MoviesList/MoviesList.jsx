@@ -9,13 +9,12 @@ export const MoviesList = ({ moviesArr }) => {
       <ul className={style['list']}>
         {moviesArr.map(movie => (
           <Link
+            key={movie.id}
             className={style['link_item']}
             to={`/movies/${movie.id}`}
             state={{ from: location }}
           >
-            <li key={movie.id} className={style['list_item']}>
-              {movie.original_title}
-            </li>
+            <li className={style['list_item']}>{movie.original_title}</li>
           </Link>
         ))}
       </ul>

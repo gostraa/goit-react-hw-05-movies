@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReviews } from 'services/api';
 import style from './Reviews.module.css';
+import { Loader } from 'components/Loader/Loader';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -15,6 +17,8 @@ const Reviews = () => {
         setReviews(reviewsOfMovie);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getReviews();
@@ -22,6 +26,7 @@ const Reviews = () => {
 
   return (
     <>
+      {loading && <Loader />}
       {reviews.length !== 0 ? (
         <ul className={style['reviews_list']}>
           {reviews.map(review => (

@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader/Loader';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 import { SearchForm } from 'components/SearchForm/SearchForm';
 
@@ -7,6 +8,7 @@ import { handleSearch } from 'services/api';
 
 const Movies = () => {
   const [films, setFilms] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const movieName = searchParams.get('movieName');
@@ -20,6 +22,8 @@ const Movies = () => {
         setFilms(searchingMovie);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getSearchingMovie();
@@ -27,13 +31,19 @@ const Movies = () => {
 
   const handleFormSubmit = inputValue => {
     setSearchParams({ movieName: inputValue });
+    setLoading(true);
   };
+  console.log(films);
 
   return (
-    <section>
-      <SearchForm onSubmit={handleFormSubmit} />
-      <MoviesList moviesArr={films} />
-    </section>
+    <>
+      {loading && <Loader />}
+      <section>
+        <SearchForm onSubmit={handleFormSubmit} />
+
+        <MoviesList moviesArr={films} />
+      </section>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import style from './Cast.module.css';
 import { Loader } from 'components/Loader/Loader';
 
 const defaultImg =
-  'https://profnastil.by/local/templates/aspro-stroy/images/noimage_detail.png';
+  'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);

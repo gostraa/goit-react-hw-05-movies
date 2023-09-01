@@ -4,7 +4,8 @@ import { fetchMovieDetails } from 'services/api';
 import style from './MovieDetails.module.css';
 import { Loader } from 'components/Loader/Loader';
 
-const defaultImg = 'https://cleanshop.ru/i/no_image.gif';
+const defaultImg =
+  'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);

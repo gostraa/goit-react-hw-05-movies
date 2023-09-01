@@ -15,7 +15,7 @@ const Movies = () => {
 
   useEffect(() => {
     if (!movieName) return;
-
+    setLoading(true);
     const getSearchingMovie = async () => {
       try {
         const searchingMovie = await handleSearch(movieName);
@@ -31,9 +31,7 @@ const Movies = () => {
 
   const handleFormSubmit = inputValue => {
     setSearchParams({ movieName: inputValue });
-    setLoading(true);
   };
-  console.log(films);
 
   return (
     <>
